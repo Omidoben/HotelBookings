@@ -1,19 +1,14 @@
-# src/pipeline/train_pipeline.py
-
 import os
 import sys
-# Assuming CustomException and logging are in src directly
+
 from src.logger import logging
 from src.exception import CustomException
 
-# Import the component classes from their respective locations
-# Assuming components are in src/components
 from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
 
-# Import numpy for type hinting if needed, though the components return arrays
-# import numpy as np
+import numpy as np
 
 class TrainPipeline:
     """
@@ -38,7 +33,7 @@ class TrainPipeline:
         logging.info("Starting the full training pipeline execution.")
 
         try:
-            # --- Step 1: Data Ingestion ---
+            # Data Ingestion
             logging.info("--- Starting Data Ingestion step ---")
             data_ingestion = DataIngestion()
             # initiate_data_ingestion returns paths to train and test CSVs
@@ -48,7 +43,7 @@ class TrainPipeline:
             logging.info(f"Test data artifact saved at: {test_data_path}")
 
 
-            # --- Step 2: Data Transformation ---
+            # Step 2: Data Transformation
             logging.info("--- Starting Data Transformation step ---")
             data_transformation = DataTransformation()
             # initiate_data_transformation takes paths, returns processed arrays and preprocessor path
@@ -62,7 +57,7 @@ class TrainPipeline:
             logging.info(f"Preprocessor object saved at: {preprocessor_path}")
 
 
-            # --- Step 3: Model Training ---
+            # Model Training
             logging.info("--- Starting Model Training step ---")
             model_trainer = ModelTrainer()
             # initiate_model_trainer takes processed arrays, returns best model's test score
@@ -80,19 +75,17 @@ class TrainPipeline:
             return best_model_test_score
 
         except CustomException as ce:
-            # CustomException should already log details, just re-raise
             logging.error(f"Custom exception occurred during pipeline execution: {ce}")
-            print(f"Pipeline failed due to a custom exception: {ce}") # Print the formatted message
-            raise # Re-raise the custom exception
+            print(f"Pipeline failed due to a custom exception: {ce}")
+            raise 
         except Exception as e:
             # Catch any other unexpected exceptions
             logging.error(f"An unexpected error occurred during pipeline execution: {e}", exc_info=True)
             print(f"Pipeline failed due to an unexpected error: {e}")
-            # Wrap in CustomException for consistent error handling upstream if needed
             raise CustomException(e, sys)
 
 
-# --- Main execution block ---
+# Main execution block
 if __name__ == "__main__":
     # This block allows running the entire pipeline by executing this script directly
     logging.info("Executing the training pipeline from the main entry point.")
@@ -111,7 +104,6 @@ if __name__ == "__main__":
 
 
     except CustomException as ce:
-        # The CustomException should already log the details inside its __init__ or the calling function
         logging.error(f"Pipeline execution failed with a custom exception: {ce}")
         print(f"Pipeline execution failed: {ce}") # Print the formatted message
         sys.exit(1) # Exit with a non-zero status code to indicate failure
