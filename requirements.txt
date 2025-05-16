@@ -2,4 +2,11 @@ numpy
 pandas
 seaborn
 matplotlib
--e .
+scikit-learn
+xgboost
+Flask
+dill
+gunicorn
+category-encoders
+joblib
+#-e .
