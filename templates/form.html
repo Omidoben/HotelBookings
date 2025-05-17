@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Hotel Booking Cancellation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Light gray background */
+            padding-top: 2rem;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem; /* Rounded corners */
+        }
+        .form-container {
+            max-width: 900px; /* Slightly wider form */
+            margin: 0 auto;
+        }
+         select, input[type="text"], input[type="number"], input[type="date"] {
+            border-radius: 0.25rem; /* Small rounded corners for inputs */
+         }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <div class="card bg-white">
+            <div class="card-header bg-blue-600 text-white p-4 rounded-t-md">
+                <h3 class="mb-0 text-2xl font-semibold">Hotel Booking Cancellation Prediction</h3>
+            </div>
+            <div class="card-body p-6">
+                <form action="/predict" method="POST">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-6">
+
+                        <div>
+                            <label for="hotel" class="block text-sm font-medium text-gray-700">Hotel Type</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="hotel" name="hotel" required>
+                                <option value="" selected disabled>Select hotel type</option>
+                                <option value="Resort Hotel">Resort Hotel</option>
+                                <option value="City Hotel">City Hotel</option>
+                            </select>
+                        </div>
+                         <div>
+                            <label for="lead_time" class="block text-sm font-medium text-gray-700">Lead Time (days)</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="lead_time" name="lead_time" min="0" required>
+                        </div>
+
+                         <div>
+                            <label for="arrival_date_year" class="block text-sm font-medium text-gray-700">Arrival Year</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="arrival_date_year" name="arrival_date_year" min="2015" max="2018" required> </div>
+                        <div>
+                            <label for="arrival_date_month" class="block text-sm font-medium text-gray-700">Arrival Month</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="arrival_date_month" name="arrival_date_month" required>
+                                <option value="" selected disabled>Select month</option>
+                                <option value="January">January</option><option value="February">February</option>
+                                <option value="March">March</option><option value="April">April</option>
+                                <option value="May">May</option><option value="June">June</option>
+                                <option value="July">July</option><option value="August">August</option>
+                                <option value="September">September</option><option value="October">October</option>
+                                <option value="November">November</option><option value="December">December</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="arrival_date_week_number" class="block text-sm font-medium text-gray-700">Arrival Week Number</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="arrival_date_week_number" name="arrival_date_week_number" min="1" max="53" required>
+                        </div>
+                         <div>
+                            <label for="arrival_date_day_of_month" class="block text-sm font-medium text-gray-700">Arrival Day of Month</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="arrival_date_day_of_month" name="arrival_date_day_of_month" min="1" max="31" required>
+                        </div>
+
+                        <div>
+                            <label for="stays_in_weekend_nights" class="block text-sm font-medium text-gray-700">Stays in Weekend Nights</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="stays_in_weekend_nights" name="stays_in_weekend_nights" min="0" required>
+                        </div>
+                        <div>
+                            <label for="stays_in_week_nights" class="block text-sm font-medium text-gray-700">Stays in Week Nights</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="stays_in_week_nights" name="stays_in_week_nights" min="0" required>
+                        </div>
+
+                        <div>
+                            <label for="adults" class="block text-sm font-medium text-gray-700">Number of Adults</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="adults" name="adults" min="0" required>
+                        </div>
+                         <div>
+                            <label for="children" class="block text-sm font-medium text-gray-700">Number of Children</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="children" name="children" min="0" required>
+                        </div>
+
+                        <div>
+                            <label for="babies" class="block text-sm font-medium text-gray-700">Number of Babies</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="babies" name="babies" min="0" required>
+                        </div>
+                         <div>
+                            <label for="meal" class="block text-sm font-medium text-gray-700">Meal Type</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="meal" name="meal" required>
+                                <option value="" selected disabled>Select meal type</option>
+                                <option value="BB">BB (Bed & Breakfast)</option><option value="FB">FB (Full Board)</option>
+                                <option value="HB">HB (Half Board)</option><option value="SC">SC (Self Catering)</option>
+                                <option value="Undefined">Undefined</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="country" name="country" placeholder="e.g., PRT" required>
+                        </div>
+                         <div>
+                            <label for="market_segment" class="block text-sm font-medium text-gray-700">Market Segment</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="market_segment" name="market_segment" required>
+                                <option value="" selected disabled>Select segment</option>
+                                <option value="Direct">Direct</option><option value="Corporate">Corporate</option>
+                                <option value="Online TA">Online TA</option><option value="Offline TA/TO">Offline TA/TO</option>
+                                <option value="Complementary">Complementary</option><option value="Groups">Groups</option>
+                                <option value="Undefined">Undefined</option><option value="Aviation">Aviation</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="distribution_channel" class="block text-sm font-medium text-gray-700">Distribution Channel</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="distribution_channel" name="distribution_channel" required>
+                                <option value="" selected disabled>Select channel</option>
+                                <option value="Direct">Direct</option><option value="Corporate">Corporate</option>
+                                <option value="TA/TO">TA/TO</option><option value="Undefined">Undefined</option>
+                                <option value="GDS">GDS</option>
+                            </select>
+                        </div>
+                         <div>
+                            <label for="is_repeated_guest" class="block text-sm font-medium text-gray-700">Is Repeated Guest?</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="is_repeated_guest" name="is_repeated_guest" required>
+                                <option value="" selected disabled>Select option</option>
+                                <option value="0">No</option><option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="previous_cancellations" class="block text-sm font-medium text-gray-700">Previous Cancellations</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="previous_cancellations" name="previous_cancellations" min="0" required>
+                        </div>
+                         <div>
+                            <label for="previous_bookings_not_canceled" class="block text-sm font-medium text-gray-700">Previous Bookings Not Canceled</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="previous_bookings_not_canceled" name="previous_bookings_not_canceled" min="0" required>
+                        </div>
+
+                        <div>
+                            <label for="reserved_room_type" class="block text-sm font-medium text-gray-700">Reserved Room Type</label>
+                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="reserved_room_type" name="reserved_room_type" placeholder="e.g., A" required>
+                        </div>
+                         <div>
+                            <label for="assigned_room_type" class="block text-sm font-medium text-gray-700">Assigned Room Type</label>
+                            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="assigned_room_type" name="assigned_room_type" placeholder="e.g., A" required>
+                        </div>
+
+                        <div>
+                            <label for="booking_changes" class="block text-sm font-medium text-gray-700">Booking Changes</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="booking_changes" name="booking_changes" min="0" required>
+                        </div>
+                         <div>
+                            <label for="deposit_type" class="block text-sm font-medium text-gray-700">Deposit Type</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="deposit_type" name="deposit_type" required>
+                                <option value="" selected disabled>Select deposit type</option>
+                                <option value="No Deposit">No Deposit</option><option value="Non Refund">Non Refund</option>
+                                <option value="Refundable">Refundable</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="agent" class="block text-sm font-medium text-gray-700">Agent ID (Optional)</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="agent" name="agent" min="0">
+                        </div>
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-gray-700">Company ID (Optional)</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="company" name="company" min="0">
+                        </div>
+
+
+                        <div>
+                            <label for="days_in_waiting_list" class="block text-sm font-medium text-gray-700">Days in Waiting List</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="days_in_waiting_list" name="days_in_waiting_list" min="0" required>
+                        </div>
+                         <div>
+                            <label for="customer_type" class="block text-sm font-medium text-gray-700">Customer Type</label>
+                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="customer_type" name="customer_type" required>
+                                <option value="" selected disabled>Select customer type</option>
+                                <option value="Transient">Transient</option><option value="Contract">Contract</option>
+                                <option value="Transient-Party">Transient-Party</option><option value="Group">Group</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="adr" class="block text-sm font-medium text-gray-700">ADR (Average Daily Rate)</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="adr" name="adr" step="0.01" required>
+                        </div>
+                         <div>
+                            <label for="required_car_parking_spaces" class="block text-sm font-medium text-gray-700">Required Car Parking Spaces</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="required_car_parking_spaces" name="required_car_parking_spaces" min="0" required>
+                        </div>
+
+                        <div>
+                            <label for="total_of_special_requests" class="block text-sm font-medium text-gray-700">Total Special Requests</label>
+                            <input type="number" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="total_of_special_requests" name="total_of_special_requests" min="0" required>
+                        </div>
+
+                        <input type="hidden" id="is_canceled" name="is_canceled" value="0"> <input type="hidden" id="reservation_status" name="reservation_status" value="Unknown"> <input type="hidden" id="reservation_status_date" name="reservation_status_date" value="1900-01-01"> </div>
+
+                    <div class="flex justify-end space-x-4 mt-6">
+                        <a href="/" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Back</a>
+                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Predict Cancellation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

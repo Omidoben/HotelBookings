@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking Cancellation Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Light gray background */
+            padding-top: 2rem;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border-radius: 0.5rem; /* Rounded corners */
+        }
+        .hero {
+            padding: 2rem;
+            background-color: #e2e8f0; /* Lighter gray */
+            border-radius: 0.5rem; /* Rounded corners */
+            margin-bottom: 2rem;
+        }
+        .container {
+            max-width: 1200px; /* Wider container */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        footer {
+            background-color: #2d3748; /* Dark gray */
+            color: white;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero text-center">
+            <h1 class="text-4xl font-bold mb-3">Hotel Booking Cancellation Predictor</h1>
+            <p class="text-lg text-gray-700 mb-4">Predict whether a hotel booking is likely to be canceled using machine learning.</p>
+            <hr class="my-4 border-gray-400">
+            <p class="mb-6">Enter booking details to get a prediction.</p>
+            <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300" href="/predict" role="button">Make a Prediction</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card bg-white p-6">
+                <h5 class="text-xl font-semibold mb-3">About This Project</h5>
+                <p class="text-gray-700">
+                    This application uses a machine learning model to predict the likelihood of a hotel booking being canceled.
+                    By analyzing various factors such as lead time, booking changes, deposit type, and guest history,
+                    the model provides insights that can help hotels manage reservations and reduce revenue loss from cancellations.
+                </p>
+            </div>
+            <div class="card bg-white p-6">
+                <h5 class="text-xl font-semibold mb-3">API Access</h5>
+                <p class="text-gray-700 mb-4">
+                    This prediction service is also available via a REST API endpoint.
+                    Send a POST request to <code>/api/predict</code> with JSON data containing the booking information.
+                </p>
+                <pre class="bg-gray-100 p-4 rounded-md text-sm overflow-x-auto">
+{
+  "hotel": "City Hotel",
+  "lead_time": 50,
+  "arrival_date_year": 2017,
+  "arrival_date_month": "July",
+  "arrival_date_week_number": 27,
+  "arrival_date_day_of_month": 1,
+  "stays_in_weekend_nights": 1,
+  "stays_in_week_nights": 2,
+  "adults": 2,
+  "children": 0,
+  "babies": 0,
+  "meal": "BB",
+  "country": "PRT",
+  "market_segment": "Online TA",
+  "distribution_channel": "TA/TO",
+  "is_repeated_guest": 0,
+  "previous_cancellations": 0,
+  "previous_bookings_not_canceled": 0,
+  "reserved_room_type": "A",
+  "assigned_room_type": "A",
+  "booking_changes": 0,
+  "deposit_type": "No Deposit",
+  "agent": null,
+  "company": null,
+  "days_in_waiting_list": 0,
+  "customer_type": "Transient",
+  "adr": 100.0,
+  "required_car_parking_spaces": 0,
+  "total_of_special_requests": 1,
+  "reservation_status": "Check-Out",
+  "reservation_status_date": "2017-07-04"
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <div class="container">
+            <p>&copy; 2023 Hotel Booking Cancellation ML Project</p>
+        </div>
+    </footer>
+</body>
+</html>

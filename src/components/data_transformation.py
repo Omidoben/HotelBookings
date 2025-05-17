@@ -322,7 +322,7 @@ class DataTransformation:
             raise CustomException(e, sys)
 
 
-# --- For local testing ---
+# For local testing
 if __name__ == "__main__":
     # This block demonstrates how to run the transformation step.
 
@@ -353,43 +353,9 @@ if __name__ == "__main__":
         logging.info(f"Final transformed Test Array Shape: {test_arr.shape}")
         logging.info(f"Preprocessor object saved at: {preprocessor_path}")
 
-        # --- Optional: Verify saved preprocessor by loading and applying to sample ---
-        # logging.info("\n--- Verifying saved preprocessor by loading and applying to sample data ---")
-        # loaded_preprocessor = load_object(preprocessor_path) # Use load_object from utils
-
-        # if loaded_preprocessor:
-        #     # Read a small sample of the ORIGINAL test data to transform
-        #     original_test_df_sample = pd.read_csv(test_data_path_artifact).head()
-        #     # Apply the SAME cleaning, FE, dropping, and log1p steps as in initiate_data_transformation *before* transforming
-        #     original_test_df_sample.drop_duplicates(inplace=True)
-        #     original_test_df_sample.reset_index(drop=True, inplace=True)
-        #     original_test_df_sample_features = original_test_df_sample.drop(columns=[data_transformation.target_column_name], axis=1)
-        #     original_test_df_sample_features_fe = data_transformation.apply_feature_engineering(original_test_df_sample_features)
-        #     cols_to_drop_verify = [col for col in data_transformation.cols_to_drop_after_fe if col in original_test_df_sample_features_fe.columns]
-        #     original_test_df_sample_processed = original_test_df_sample_features_fe.drop(columns=cols_to_drop_verify)
-        #     if 'adr' in original_test_df_sample_processed.columns:
-        #          original_test_df_sample_processed['adr'] = np.log1p(original_test_df_sample_processed['adr'])
-        #          # Need the original train median for imputation here - this part is complex for a simple test block
-        #          # For a real test, you'd save/load the train median or the whole train_df for comparison
-        #          # Let's skip the adr imputation verification in this simple block for clarity.
-        #          pass # Adr log1p applied
-
-        #     # Transform the sample features using the loaded preprocessor
-        #     # Note: TargetEncoder expects the target column during fit, but only features during transform.
-        #     # The ColumnTransformer handles this correctly.
-        #     transformed_sample = loaded_preprocessor.transform(original_test_df_sample_processed)
-        #     logging.info("Successfully loaded and applied preprocessor to a sample.")
-        #     # print("Transformed Sample Features (first few rows):")
-        #     # print(transformed_sample)
-        # else:
-        #     logging.warning("Could not load the preprocessor object.")
-
-
     except CustomException as ce:
-        # The CustomException should already log the details inside its __init__ or the calling function
         logging.error(f"A custom exception occurred in __main__ block: {ce}")
-        print(f"A custom exception occurred: {ce}") # Print the formatted message
+        print(f"A custom exception occurred: {ce}") 
     except Exception as ex:
-         # Catch any other unexpected exceptions
          logging.error(f"An unexpected error occurred in __main__ block: {ex}", exc_info=True)
          print(f"An unexpected error occurred: {ex}")

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Light gray background */
+            padding-top: 2rem;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem; /* Rounded corners */
+        }
+        .result-container {
+            max-width: 700px; /* Wider result container */
+            margin: 0 auto;
+        }
+        .prediction-display {
+            font-size: 2.5rem; /* Larger font */
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .prediction-display.canceled {
+            color: #dc2626; /* Red for canceled */
+        }
+        .prediction-display.not-canceled {
+            color: #16a34a; /* Green for not canceled */
+        }
+    </style>
+</head>
+<body>
+    <div class="container result-container">
+        <div class="card bg-white">
+            <div class="card-header bg-green-600 text-white p-4 rounded-t-md text-center">
+                <h3 class="mb-0 text-2xl font-semibold">Prediction Results</h3>
+            </div>
+            <div class="card-body p-6 text-center">
+                <h4 class="text-xl font-semibold mb-4">Predicted Booking Status</h4>
+
+                {% if prediction == 1 %}
+                    <div class="prediction-display canceled">Canceled</div>
+                {% else %}
+                    <div class="prediction-display not-canceled">Not Canceled</div>
+                {% endif %}
+
+
+                <div class="card bg-gray-100 p-4 mb-6">
+                    <h5 class="text-lg font-semibold mb-2">Interpretation</h5>
+                    {% if prediction == 1 %}
+                        <p class="text-red-700">
+                            Based on the provided booking details, the model predicts that this booking is likely to be **canceled**.
+                            Consider reviewing the booking details or implementing strategies to mitigate potential cancellation loss.
+                        </p>
+                    {% else %}
+                        <p class="text-green-700">
+                            Based on the provided booking details, the model predicts that this booking is likely **not to be canceled**.
+                            This booking appears stable based on the features analyzed.
+                        </p>
+                    {% endif %}
+                </div>
+
+                <div class="flex justify-center space-x-4 mt-6">
+                    <a href="/predict" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Make Another Prediction</a>
+                    <a href="/" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+</html>

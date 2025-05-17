@@ -1,0 +1,55 @@
+# Ignore files and directories that are not needed in the Docker image
+
+# Git version control files
+.git
+.gitignore
+
+# Python virtual environments
+venv/
+env/
+ENV/
+
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# IDE specific files (VS Code, PyCharm)
+.vscode/
+.idea/
+
+# Docker specific files (if any)
+.docker/
+
+# Log files and directory
+logs/
+*.log
+
+# Data files that are not part of the source code or artifacts
+# If your raw data is in a 'notebook/data' folder, you might add:
+notebook/data/
+*.csv # Be careful with this if you have CSVs you DO want to include
+
+# Any other large files or directories not needed in the final image
+# For example, if you had a large dataset file outside of src or artifacts
+# large_dataset.csv
